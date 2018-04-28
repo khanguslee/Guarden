@@ -28,6 +28,8 @@ app.use(cors());
 
 var db;
 var COLL_SENSOR_DATA = 'sensor_data';
+var COLL_SPRAY = 'spray';
+
 var mongodb_url = "mongodb://localhost:27017/sensor_data";
 mongodb.MongoClient.connect(process.env.MONGODB_URI || mongodb_url, (err, client) => {
     if (err) {
@@ -112,5 +114,26 @@ app.post('/api/sensor', (req, res) => {
         console.log('Data saved to database');
         res.end();
     });
+});
+
+// Endpoint to set if user sprayed
+// Sets a variable for 5 seconds, and returns it back to normal
+app.post('/api/spray', (req, res) => {
+    db.collection(COLL_SPRAY).save(1, (err, result) => {
+        if (err) return console.log(err);
+        console.log('Plant sprayed!');
+        setTimeout(()=>{
+            db.collection(COLL_SPRAY).save(0, (err, result) => {
+                if (err) return console.log(err);
+            });
+        }, 5000);
+        res.end();
+    });
+});
+
+// Endpoint to check if user pressed the spray button
+app.get('/api/spray', (req, res) => {
+    console.log(db.collection(COLL_SPRAY).find().limit(1).sort({$natural:-1}));
+    res.end();
 });
 

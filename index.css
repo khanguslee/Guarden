@@ -11,6 +11,5 @@ header {
 }
 
 button {
-    position: absolute;
-    left: 50%;
+    margin: 0px auto !important;
 }

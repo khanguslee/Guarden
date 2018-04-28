@@ -112,6 +112,13 @@ fetch('https://guarden.herokuapp.com/api/sensor', options
 
 function trigger_spray(){
     console.log("Spray");
+    var spray_options = {
+        method: 'POST'
+    }
+    fetch("https://guarden.herokuapp.com/api/spray", spray_options)
+    .then((response) => {
+        console.log(response);
+    })
 }
 
 

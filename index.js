@@ -99,7 +99,7 @@ function render_soil_chart(sensor_data_array){
 }
 
 var options = { method: 'GET', headers:{"Content-Type": "application/json"}};
-fetch('http://guarden.herokuapp.com/api/sensor', options
+fetch('https://guarden.herokuapp.com/api/sensor', options
 ).then((response) => {
     return response.json();
   })

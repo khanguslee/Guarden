@@ -82,6 +82,17 @@ app.get('/index.js', (req, res) => {
 
 app.post('/api/sensor', (req, res) => {
     var data = req.body;
-    console.log(data);
-    res.end();
+    if (!data.date){
+        console.error("Invalid JSON");
+        res.status(400).send({error: "Invalid JSON"});
+    }
+    var input_date = data.date;
+    var input_time = data.time;
+    var input_sensor_data = data.sensor_data;
+
+    db.collection('sensor_data').save(data, (err, result) => {
+        if (err) return console.log(err);
+        console.log('Data saved to database');
+        res.end();
+    });
 });

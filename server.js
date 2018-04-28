@@ -57,6 +57,11 @@ app.get('/index.css', (req, res) => {
     res.sendFile(path.join(__dirname + '/index.css'));
 });
 
+// Endpoint to get js file
+app.get('/index.js', (req, res) => {
+    res.sendFile(path.join(__dirname + '/index.js'));
+});
+
 var server = app.listen(PORT, () => {
     console.log("Example app listening at ", PORT);
 });

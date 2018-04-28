@@ -20,11 +20,11 @@ var bodyParser = require('body-parser');
 const PORT = process.env.PORT || 5000;
 
 // Middleware
+app.use(cors());
 app.use(express.static('public'));
 app.use(bodyParser({extended: false}));
 app.use(bodyParser.json());
 app.use(upload.any());
-app.use(cors());
 
 var db;
 var COLL_SENSOR_DATA = 'sensor_data';
@@ -107,6 +107,6 @@ app.get('/api/sensor', (req, res) => {
         if (err) {
             console.error(err);
         }
-        res.json(result);
+        res.send(result);
     })
 });

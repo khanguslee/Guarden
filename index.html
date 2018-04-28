@@ -6,8 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" type="text/css" href="index.css">            
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-        <script src="index.js" type="text/javascript"></script>    
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
     </head>
     
     <body>
@@ -17,8 +16,17 @@
         </header>
 
         <div class="container">
-            <img id="main-image" src="/image.jpg">
+            <div class="row">
+                <div class="col-md">
+                    <img id="main-image" src="/image.jpg">
+                </div>
+                <div class="col-md">
+                    <canvas id="temp_chart" width="400" height="400"></canvas>
+                </div>
+            </div>
         </div>
     </body>
+    <script src="index.js" type="text/javascript"></script>    
+
 </html>
 

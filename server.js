@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 var fs = require('fs');
 var path = require('path');
+var mongodb = require('mongodb');
 
 var multer = require('multer');
 var storage = multer.diskStorage({
@@ -20,6 +21,7 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 app.use(express.static('public'));
 app.use(bodyParser({extended: false}));
+app.use(bodyParser.json());
 app.use(upload.any());
 
 // Endpoint for main page
@@ -62,6 +64,22 @@ app.get('/index.js', (req, res) => {
     res.sendFile(path.join(__dirname + '/index.js'));
 });
 
-var server = app.listen(PORT, () => {
-    console.log("Example app listening at ", PORT);
-});
+app.get('/api/chart', (req, res) => {
+
+})
+
+var db;
+var mongodb_url = "mongodb://localhost:27017/sensor_data";
+mongodb.MongoClient.connect(process.env.MONGODB_URI || mongodb_url, (err, client) => {
+    if (err) {
+        console.error(err);
+        process.exit(1);
+    }
+    db = client.db();
+    console.log('Database connection ready!');
+
+    // Initialise app
+    var server = app.listen(PORT, () => {
+        console.log("Example app listening at", server.address().port);
+    });
+})

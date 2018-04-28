@@ -20,11 +20,11 @@ var bodyParser = require('body-parser');
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors());
 app.use(express.static('public'));
 app.use(bodyParser({extended: false}));
 app.use(bodyParser.json());
 app.use(upload.any());
+app.use(cors());
 
 var db;
 var COLL_SENSOR_DATA = 'sensor_data';
@@ -85,6 +85,18 @@ app.get('/index.js', (req, res) => {
 
 // Endpoint to store sensor data
 // TODO: Validation of data
+app.get('/api/sensor', (req, res) => {
+    db.collection(COLL_SENSOR_DATA).find().toArray((err, result) => {
+        if (err) {
+            console.error(err);
+            return res.send(500);
+        }
+
+        console.log(result);
+        res.send(result);
+    })
+});
+
 app.post('/api/sensor', (req, res) => {
     var data = req.body;
     if (!data.date){
@@ -102,11 +114,3 @@ app.post('/api/sensor', (req, res) => {
     });
 });
 
-app.get('/api/sensor', (req, res) => {
-    db.collection(COLL_SENSOR_DATA).find().toArray((err, result) => {
-        if (err) {
-            console.error(err);
-        }
-        res.send(result);
-    })
-});

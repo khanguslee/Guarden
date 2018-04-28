@@ -23,30 +23,94 @@ window.onload = function()
   // you can refresh as many images you want just repeat above steps
 }
 
+function render_temp_chart(sensor_data_array){
+    var date_array = [];
+    var temp_array = [];
+
+    for(var i=0; i<sensor_data_array.length; i++){
+        var data_entry = sensor_data_array[i]
+        var sensor_data = JSON.parse(data_entry.sensor_data);
+        date_array.push(data_entry.date + ' ' + data_entry.time);
+        temp_array.push(sensor_data.temperature);
+    }
+
+    var options = {
+        axisX: {
+          labelInterpolationFnc: function(value, index) {
+            return index % 30 === 0 ? value : null;
+          }
+        }
+    };
+
+    Chartist.Line(".temp-chart", {
+        labels: date_array,
+        series: [temp_array]
+      }, options);
+}
+
+function render_humidity_chart(sensor_data_array){
+    var date_array = [];
+    var humid_array = [];
+
+    for(var i=0; i<sensor_data_array.length; i++){
+        var data_entry = sensor_data_array[i]
+        var sensor_data = JSON.parse(data_entry.sensor_data);
+        date_array.push(data_entry.date + ' ' + data_entry.time);
+        humid_array.push(sensor_data.humidity);
+    }
+
+    var options = {
+        axisX: {
+          labelInterpolationFnc: function(value, index) {
+            return index % 30 === 0 ? value : null;
+          }
+        }
+    };
+
+    Chartist.Line(".humid-chart", {
+        labels: date_array,
+        series: [humid_array]
+      }, options);
+}
+
+function render_soil_chart(sensor_data_array){
+    var date_array = [];
+    var soil_array = [];
+
+    for(var i=0; i<sensor_data_array.length; i++){
+        var data_entry = sensor_data_array[i]
+        var sensor_data = JSON.parse(data_entry.sensor_data);
+        date_array.push(data_entry.date + ' ' + data_entry.time);
+        soil_array.push(sensor_data.soil);
+    }
+
+    var options = {
+        axisX: {
+          labelInterpolationFnc: function(value, index) {
+            return index % 30 === 0 ? value : null;
+          }
+        }
+    };
+
+    Chartist.Line(".soil-chart", {
+        labels: date_array,
+        series: [soil_array]
+      }, options);
+}
+
 var options = { method: 'GET', headers:{"Content-Type": "application/json"}};
 fetch('http://guarden.herokuapp.com/api/sensor', options
 ).then((response) => {
-    console.log(response);
-}).then((response) => {
-    console.log(response);
-    const reader = body;
-});
-
-
-
-var ctx_temp_chart = document.getElementById("temp_chart");
-var temp_line_chart = new Chart(ctx_temp_chart, {
-    type: 'line',
-    data: {
-      labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
-      datasets: [{
-        label: 'apples',
-        data: [12, 19, 3, 17, 6, 3, 7],
-        backgroundColor: "rgba(153,255,51,0.4)"
-      }, {
-        label: 'oranges',
-        data: [2, 29, 5, 5, 2, 3, 10],
-        backgroundColor: "rgba(255,153,0,0.4)"
-      }]
-    }
+    return response.json();
+  })
+  .then((output_json) => {
+      console.log(output_json);
+    render_temp_chart(output_json);
+    render_humidity_chart(output_json);
+    render_soil_chart(output_json);
   });
+
+
+
+
+

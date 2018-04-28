@@ -6,7 +6,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" type="text/css" href="index.css">            
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+        <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
     </head>
     
     <body>
@@ -21,7 +22,18 @@
                     <img id="main-image" src="/image.jpg">
                 </div>
                 <div class="col-md">
-                    <canvas id="temp_chart" width="400" height="400"></canvas>
+                    <div class="row">
+                        <h3>Temperature</h3>
+                        <div class="ct-chart ct-golden-section temp-chart"></div>
+                    </div>
+                    <div class="row">
+                        <h3>Humidity</h3>
+                        <div class="ct-chart ct-golden-section humid-chart"></div>
+                    </div>
+                    <div class="row">
+                        <h3>Soil</h3>
+                        <div class="ct-chart ct-golden-section soil-chart"></div>
+                    </div>
                 </div>
             </div>
         </div>

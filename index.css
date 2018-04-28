@@ -9,3 +9,8 @@ img{
 header {
     text-align: center;
 }
+
+button {
+    position: absolute;
+    left: 50%;
+}

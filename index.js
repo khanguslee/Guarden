@@ -110,7 +110,9 @@ fetch('https://guarden.herokuapp.com/api/sensor', options
     render_soil_chart(output_json);
   });
 
-
+function trigger_spray(){
+    console.log("Spray");
+}
 
 
 

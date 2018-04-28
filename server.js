@@ -2,38 +2,51 @@
 const express = require('express');
 const app = express();
 var fs = require('fs');
-var bodyParser = require('body-parser');
 var path = require('path');
+
+var multer = require('multer');
+var storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads')
+    },
+    filename: (req, file, cb) => {
+        cb(null, "image.jpg")
+    }
+});
+var upload = multer({dest: '/uploads/', storage: storage});
+var bodyParser = require('body-parser');
 const PORT = process.env.PORT || 5000;
 
-app.use(
-    bodyParser({
-        uploadDir:'./temp/images'
-    })
-);
+// Middleware
+app.use(express.static('public'));
+app.use(bodyParser({extended: false}));
+app.use(upload.any());
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname + '/index.html'));
 });
 
 app.post('/api/upload', (req, res) => {
-    var temp_path = req.files.file.path,
-    target_path = path.resolve('./uploads/image.jpg');
-    if (path.extname(req.files.file.name).toLowerCase() === '.jpg') {
-        fs.rename(temp_path, target_path, (err) => {
-            if (err) throw err;
-            console.error("Upload completed!");
+    var filename = req.files[0].filename;
+    var file = path.join(__dirname, filename);
+    fs.readFile(file, (err, data) => {
+        fs.writeFile(file, data, (err) => {
+            if (err){
+                console.log(err);
+            } else {
+                response = {
+                    message: "File uploaded successfully",
+                    filename:   "image.jpg"
+                };
+            }
+            console.log(response);
+            res.end(JSON.stringify(response));
         });
-    } else {
-        fs.unlink(temp_path, () => {
-            if (err) throw err;
-            console.error("Only .jps files are allowed!");
-        })
-    }
+    });
 });
 
 app.get('/image.png', (req, res) => {
-    res.sendfile(path.resolve('./uploads/image.jpg'))
+    res.sendFile(path.resolve('./uploads/image.jpg'))
 })
 
 var server = app.listen(PORT, () => {

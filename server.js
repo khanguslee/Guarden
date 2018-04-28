@@ -4,6 +4,7 @@ const app = express();
 var fs = require('fs');
 var path = require('path');
 var mongodb = require('mongodb');
+var cors = require('cors');
 
 var multer = require('multer');
 var storage = multer.diskStorage({
@@ -23,6 +24,7 @@ app.use(express.static('public'));
 app.use(bodyParser({extended: false}));
 app.use(bodyParser.json());
 app.use(upload.any());
+app.use(cors());
 
 var db;
 var COLL_SENSOR_DATA = 'sensor_data';
@@ -105,6 +107,6 @@ app.get('/api/sensor', (req, res) => {
         if (err) {
             console.error(err);
         }
-        res.send(result)
+        res.json(result);
     })
 });

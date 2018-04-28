@@ -1,0 +1,22 @@
+{
+  "name": "guarden",
+  "version": "1.0.0",
+  "description": "Monash Hard Hackathon",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/khanguslee/Guarden.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/khanguslee/Guarden/issues"
+  },
+  "homepage": "https://github.com/khanguslee/Guarden#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}

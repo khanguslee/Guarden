@@ -1,3 +1,2 @@
 # Guarden
-## Monash University Hard Hackathon
-## Team 3
+## Monash University Hard Hackathon 2018 - Team 3

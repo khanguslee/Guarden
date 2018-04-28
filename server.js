@@ -25,6 +25,7 @@ app.use(bodyParser.json());
 app.use(upload.any());
 
 var db;
+var COLL_SENSOR_DATA = 'sensor_data';
 var mongodb_url = "mongodb://localhost:27017/sensor_data";
 mongodb.MongoClient.connect(process.env.MONGODB_URI || mongodb_url, (err, client) => {
     if (err) {
@@ -80,6 +81,8 @@ app.get('/index.js', (req, res) => {
     res.sendFile(path.join(__dirname + '/index.js'));
 });
 
+// Endpoint to store sensor data
+// TODO: Validation of data
 app.post('/api/sensor', (req, res) => {
     var data = req.body;
     if (!data.date){
@@ -90,9 +93,18 @@ app.post('/api/sensor', (req, res) => {
     var input_time = data.time;
     var input_sensor_data = data.sensor_data;
 
-    db.collection('sensor_data').save(data, (err, result) => {
+    db.collection(COLL_SENSOR_DATA).save(data, (err, result) => {
         if (err) return console.log(err);
         console.log('Data saved to database');
         res.end();
     });
+});
+
+app.get('/api/sensor', (req, res) => {
+    db.collection(COLL_SENSOR_DATA).find().toArray((err, result) => {
+        if (err) {
+            console.error(err);
+        }
+        res.send(result)
+    })
 });

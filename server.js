@@ -24,6 +24,22 @@ app.use(bodyParser({extended: false}));
 app.use(bodyParser.json());
 app.use(upload.any());
 
+var db;
+var mongodb_url = "mongodb://localhost:27017/sensor_data";
+mongodb.MongoClient.connect(process.env.MONGODB_URI || mongodb_url, (err, client) => {
+    if (err) {
+        console.error(err);
+        process.exit(1);
+    }
+    db = client.db();
+    console.log('Database connection ready!');
+
+    // Initialise app
+    var server = app.listen(PORT, () => {
+        console.log("Example app listening at", server.address().port);
+    });
+})
+
 // Endpoint for main page
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname + '/index.html'));
@@ -64,22 +80,8 @@ app.get('/index.js', (req, res) => {
     res.sendFile(path.join(__dirname + '/index.js'));
 });
 
-app.get('/api/chart', (req, res) => {
-
-})
-
-var db;
-var mongodb_url = "mongodb://localhost:27017/sensor_data";
-mongodb.MongoClient.connect(process.env.MONGODB_URI || mongodb_url, (err, client) => {
-    if (err) {
-        console.error(err);
-        process.exit(1);
-    }
-    db = client.db();
-    console.log('Database connection ready!');
-
-    // Initialise app
-    var server = app.listen(PORT, () => {
-        console.log("Example app listening at", server.address().port);
-    });
-})
+app.post('/api/sensor', (req, res) => {
+    var data = req.body;
+    console.log(data);
+    res.end();
+});

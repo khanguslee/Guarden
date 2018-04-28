@@ -22,10 +22,12 @@ app.use(express.static('public'));
 app.use(bodyParser({extended: false}));
 app.use(upload.any());
 
+// Endpoint for main page
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname + '/index.html'));
 });
 
+// Endpoint to upload jpg file
 app.post('/api/upload', (req, res) => {
     var filename = req.files[0].filename;
     var file = path.join(__dirname, filename);
@@ -45,9 +47,15 @@ app.post('/api/upload', (req, res) => {
     });
 });
 
-app.get('/image.png', (req, res) => {
+// Endpoint to get image file
+app.get('/image.jpg', (req, res) => {
     res.sendFile(path.resolve('./uploads/image.jpg'))
 })
+
+// Endpoint to get CSS file
+app.get('/index.css', (req, res) => {
+    res.sendFile(path.join(__dirname + '/index.css'));
+});
 
 var server = app.listen(PORT, () => {
     console.log("Example app listening at ", PORT);

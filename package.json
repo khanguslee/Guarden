@@ -17,7 +17,10 @@
   },
   "homepage": "https://github.com/khanguslee/Guarden#readme",
   "dependencies": {
+    "body-parser": "^1.18.2",
     "express": "^4.16.3",
+    "fs": "0.0.1-security",
+    "multer": "^1.3.0",
     "path": "^0.12.7"
   }
 }

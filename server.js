@@ -140,7 +140,7 @@ app.get('/api/spray', (req, res) => {
             return res.send(500);
         }
 
-        console.log(result[0]);
+        console.log(result);
         res.send(result);
     })
 });

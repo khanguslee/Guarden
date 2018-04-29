@@ -117,8 +117,8 @@ function trigger_spray(){
     }
     fetch("https://guarden.herokuapp.com/api/spray", spray_options)
     .then((response) => {
-        console.log(response);
-    })
+        return response;
+    });
 }
 
 

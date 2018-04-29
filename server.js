@@ -119,12 +119,13 @@ app.post('/api/sensor', (req, res) => {
 // Endpoint to set if user sprayed
 // Sets a variable for 5 seconds, and returns it back to normal
 app.post('/api/spray', (req, res) => {
-    db.collection(COLL_SPRAY).save(1, (err, result) => {
+    db.collection(COLL_SPRAY).save({"spray": 1}, (err, result) => {
         if (err) return console.log(err);
         console.log('Plant sprayed!');
         setTimeout(()=>{
-            db.collection(COLL_SPRAY).save(0, (err, result) => {
+            db.collection(COLL_SPRAY).save({"spray": 0}, (err, result) => {
                 if (err) return console.log(err);
+                console.log("Reset spray variable!");
             });
         }, 5000);
         res.end();
@@ -133,7 +134,14 @@ app.post('/api/spray', (req, res) => {
 
 // Endpoint to check if user pressed the spray button
 app.get('/api/spray', (req, res) => {
-    console.log(db.collection(COLL_SPRAY).find().limit(1).sort({$natural:-1}));
-    res.end();
+    db.collection(COLL_SPRAY).find().limit(50).toArray((err, result) => {
+        if (err) {
+            console.error(err);
+            return res.send(500);
+        }
+
+        console.log(result[0]);
+        res.send(result);
+    })
 });
 

@@ -134,7 +134,7 @@ app.post('/api/spray', (req, res) => {
 
 // Endpoint to check if user pressed the spray button
 app.get('/api/spray', (req, res) => {
-    db.collection(COLL_SPRAY).find().limit(50).toArray((err, result) => {
+    db.collection(COLL_SPRAY).find().toArray((err, result) => {
         if (err) {
             console.error(err);
             return res.send(500);

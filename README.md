@@ -12,6 +12,7 @@ This repository was the main HTTP REST server that was in charge of hosting the 
 General overview of all endpoints.
 
 Base URI: https://guarden.herokuapp.com
+
 |Endpoint|Method|Description|
 |--------|------|-----------|
 |/api/upload|POST|Allows user to upload jpg files to server|
@@ -19,6 +20,7 @@ Base URI: https://guarden.herokuapp.com
 |/api/sensor|POST|Add sensor data stored on mongoDB|
 |/api/spray|GET|Get the whole history of the spray bottle being open and closed|
 |/api/spray|POST|Update whether the spray bottle has been pressed or not|
+
 # More Information:
 ## Infrastructure
 ![Imgur](https://i.imgur.com/wH4rseE.jpg)

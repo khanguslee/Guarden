@@ -141,7 +141,8 @@ app.get('/api/spray', (req, res) => {
         }
 
         console.log(result);
-        res.send(result);
+        length_of_array = result.length;
+        res.send(result[length_of_array-1]);
     })
 });
 

@@ -1,6 +1,6 @@
 function refresh(node)
 {
-   var times = 10000; // gap in Milli Seconds;
+   var times = 2000; // gap in Milli Seconds;
 
    (function startRefresh()
    {

@@ -127,7 +127,7 @@ app.post('/api/spray', (req, res) => {
                 if (err) return console.log(err);
                 console.log("Reset spray variable!");
             });
-        }, 5000);
+        }, 15000);
         res.end();
     });
 });
